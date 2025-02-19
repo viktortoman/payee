@@ -16,3 +16,6 @@
     2. Frontend: http://localhost:4200
     3. MySQL: http://localhost:3306
     4. Swagger API Documentation: http://localhost:8000/api/documentation
+
+# USAGE
+    1. Store alapkamat.xlsx file in the storage folder if you want to change the content
