@@ -2,7 +2,9 @@
 
 namespace App\Console\Commands;
 
+use App\Imports\InterestRatesImport;
 use Illuminate\Console\Command;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ParseInterestRatesXmlCommand extends Command
 {
@@ -25,6 +27,19 @@ class ParseInterestRatesXmlCommand extends Command
      */
     public function handle()
     {
-        //
+        $file = storage_path('alapkamat.xlsx');
+
+        if (!file_exists($file)) {
+            $this->error('alapkamat.xml file does not exist');
+            return;
+        }
+
+        try {
+            Excel::import(new InterestRatesImport, $file);
+
+            $this->info('Interest rates XML file has been parsed successfully');
+        } catch (\Exception $e) {
+            $this->error($e->getMessage());
+        }
     }
 }

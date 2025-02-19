@@ -19,3 +19,4 @@
 
 # USAGE
     1. Store alapkamat.xlsx file in the storage folder if you want to change the content
+    2. Run php artisan app:parse-interest-rates-xml-command to parse the XML file
