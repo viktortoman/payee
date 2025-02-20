@@ -6,6 +6,173 @@
         "version": "1.0"
     },
     "paths": {
-        "/api": {}
-    }
+        "/api": {},
+        "/api/interest": {
+            "get": {
+                "tags": [
+                    "Interest"
+                ],
+                "summary": "Get all interest calculations",
+                "operationId": "46004698bb4c876d2ea81dc33ea14b9a",
+                "responses": {
+                    "200": {
+                        "description": "Get all interest calculations",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "start_date": {
+                                            "type": "string",
+                                            "format": "date",
+                                            "example": "2021-01-01"
+                                        },
+                                        "end_date": {
+                                            "type": "string",
+                                            "format": "date",
+                                            "example": "2021-12-31"
+                                        },
+                                        "calculated_interest": {
+                                            "type": "number",
+                                            "format": "float",
+                                            "example": "0.05"
+                                        },
+                                        "principal_amount": {
+                                            "type": "number",
+                                            "format": "int",
+                                            "example": "1000"
+                                        },
+                                        "days_Count": {
+                                            "type": "number",
+                                            "format": "int",
+                                            "example": "10"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/interest/calculate": {
+            "post": {
+                "tags": [
+                    "Interest"
+                ],
+                "summary": "Calculate interest",
+                "operationId": "47f37061144d3e2a0453ffe82c1601ad",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "start_date",
+                                    "end_date",
+                                    "amount"
+                                ],
+                                "properties": {
+                                    "start_date": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2021-01-01"
+                                    },
+                                    "end_date": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2021-12-31"
+                                    },
+                                    "amount": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": "1000"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Calculate interest",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "start_date": {
+                                            "type": "string",
+                                            "format": "date",
+                                            "example": "2021-01-01"
+                                        },
+                                        "end_date": {
+                                            "type": "string",
+                                            "format": "date",
+                                            "example": "2021-12-31"
+                                        },
+                                        "calculated_interest": {
+                                            "type": "number",
+                                            "format": "float",
+                                            "example": "0.05"
+                                        },
+                                        "principal_amount": {
+                                            "type": "number",
+                                            "format": "int",
+                                            "example": "1000"
+                                        },
+                                        "days_Count": {
+                                            "type": "number",
+                                            "format": "int",
+                                            "example": "10"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/interest/get-min-max-dates": {
+            "get": {
+                "tags": [
+                    "Interest"
+                ],
+                "summary": "Get min and max dates",
+                "operationId": "23d915de0058615c9bd37ea199247535",
+                "responses": {
+                    "200": {
+                        "description": "Get min and max dates for the frontend to the interest calculator",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "min": {
+                                            "type": "string",
+                                            "format": "date",
+                                            "example": "2021-01-01"
+                                        },
+                                        "max": {
+                                            "type": "string",
+                                            "format": "date",
+                                            "example": "2021-12-31"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Interest",
+            "description": "Interest"
+        }
+    ]
 }

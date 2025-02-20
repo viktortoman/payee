@@ -9,10 +9,7 @@ class InterestRate extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'effective_date',
-        'rate',
-    ];
+    protected $guarded = [];
 
     protected $casts = [
         'effective_date' => 'date',

@@ -2,6 +2,8 @@
 
     1. Clone the repository
     2. cd payee
+    3. cp .env.example .env
+    4. Set the environment variables in the .env file
     3. docker-compose up --build -d
 
 # CHECK CONTAINERS
@@ -19,4 +21,5 @@
 
 # USAGE
     1. Store alapkamat.xlsx file in the storage folder if you want to change the content
-    2. Run php artisan app:parse-interest-rates-xml-command to parse the XML file
+    2. Run php artisan app:parse-interest-rates-xlsx-command to parse the XLSX file
+    3. Regenerate the Swagger API Documentation: php artisan l5-swagger:generate

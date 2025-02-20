@@ -9,12 +9,7 @@ class InterestCalculation extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'start_date',
-        'end_date',
-        'principal_amount',
-        'calculated_interest'
-    ];
+    protected $guarded = [];
 
     protected $casts = [
         'start_date' => 'date',
