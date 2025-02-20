@@ -9,6 +9,7 @@ use App\Models\InterestCalculation;
 use App\Models\InterestRate;
 use App\Services\API\InterestService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 
 class InterestController extends Controller
 {
@@ -58,7 +59,7 @@ class InterestController extends Controller
      *         )
      *     ),
      *     @OA\Response(
-     *         response=200,
+     *         response=201,
      *         description="Calculate interest",
      *         @OA\JsonContent(
      *             type="object",
@@ -77,12 +78,13 @@ class InterestController extends Controller
             $interestCalculation = $this->interestService->calculate($request->validated());
 
             return response()->json(
-                new InterestCalculationResource($interestCalculation)
+                new InterestCalculationResource($interestCalculation),
+                Response::HTTP_CREATED
             );
         } catch (\Exception $exception) {
             return response()->json([
                 'error' => $exception->getMessage()
-            ], 500);
+            ], Response::HTTP_BAD_REQUEST);
         }
     }
 
