@@ -1,0 +1,85 @@
+<div class="flex items-center justify-center min-h-screen bg-gray-100">
+    <div *ngIf="loaded;else loading" class="w-full max-w-lg">
+        <form [formGroup]="interestForm" (ngSubmit)="submit()"
+              class="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg"
+        >
+            <h1 class="text-2xl font-bold mb-8 text-center">
+                Interest Calculator
+            </h1>
+
+            <div *ngIf="errorMessage" class="text-red-500 text-center font-bold mb-4">
+                {{ errorMessage }}
+            </div>
+
+            <div class="mb-4">
+                <label class="block text-gray-700 font-bold mb-2">
+                    Start Date <span class="text-red-500 font-bold">*</span>
+                </label>
+                <p-datepicker
+                    formControlName="start_date"
+                    dateFormat="yy-mm-dd"
+                    id="start_date"
+                    placeholder="Select Start Date"
+                    [showIcon]="true"
+                    [minDate]="minDate"
+                    [maxDate]="maxDate"
+                    [style]="{'width':'100%'}"
+                    [inputStyle]="{'width':'100%'}">
+                </p-datepicker>
+                <div *ngIf="interestForm.get('start_date')?.invalid && interestForm.get('start_date')?.touched"
+                     class="text-red-500 text-sm mt-1">
+                    {{ getErrorMessage('start_date') }}
+                </div>
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 font-bold mb-2">
+                    End Date <span class="text-red-500 font-bold">*</span>
+                </label>
+                <p-datepicker
+                    formControlName="end_date"
+                    dateFormat="yy-mm-dd"
+                    id="end_date"
+                    placeholder="Select End Date"
+                    [showIcon]="true"
+                    [minDate]="minDate"
+                    [maxDate]="maxDate"
+                    [style]="{'width':'100%'}"
+                    [inputStyle]="{'width':'100%'}">
+                </p-datepicker>
+                <div *ngIf="interestForm.get('end_date')?.invalid && interestForm.get('end_date')?.touched"
+                     class="text-red-500 text-sm mt-1">
+                    {{ getErrorMessage('end_date') }}
+                </div>
+            </div>
+            <div class="flex-auto mb-4">
+                <label class="block text-gray-700 font-bold mb-2">
+                    Amount <span class="text-red-500 font-bold">*</span>
+                </label>
+                <p-inputnumber
+                    inputId="amount"
+                    formControlName="amount"
+                    class="w-full"
+                    [inputStyleClass]="'w-full'">
+                </p-inputnumber>
+                <div *ngIf="interestForm.get('amount')?.invalid && interestForm.get('amount')?.touched"
+                     class="text-red-500 text-sm mt-1">
+                    {{ getErrorMessage('amount') }}
+                </div>
+            </div>
+            <div class="flex justify-center mt-5">
+                <button pButton type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 w-full">
+                    <span pButtonLabel>Calculate</span>
+                </button>
+            </div>
+
+            <div class="flex justify-center mt-5">
+                <p-button [link]="true" (onClick)="showAll()">
+                    <span pButtonLabel>Show all interest</span>
+                </p-button>
+            </div>
+        </form>
+    </div>
+    <ng-template #loading>
+        <p-progressSpinner></p-progressSpinner>
+    </ng-template>
+</div>

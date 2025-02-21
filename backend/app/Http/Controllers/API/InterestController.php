@@ -5,15 +5,20 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\InterestCalculationRequest;
 use App\Http\Resources\InterestCalculationResource;
-use App\Models\InterestCalculation;
-use App\Models\InterestRate;
-use App\Services\API\InterestService;
+use App\Interfaces\Repository\InterestCalculationRepositoryInterface;
+use App\Interfaces\Repository\InterestRateRepositoryInterface;
+use App\Interfaces\Service\API\InterestServiceInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Log;
 
 class InterestController extends Controller
 {
-    public function __construct(private readonly InterestService $interestService) {}
+    public function __construct(
+        private readonly InterestServiceInterface $interestService,
+        private readonly InterestCalculationRepositoryInterface $interestCalculationRepository,
+        private readonly InterestRateRepositoryInterface $interestRateRepository
+    ) {}
 
     /**
      * @OA\Get(
@@ -39,7 +44,7 @@ class InterestController extends Controller
     {
         return response()->json(
             InterestCalculationResource::collection(
-                InterestCalculation::all()
+                $this->interestCalculationRepository->all()
             )
         );
     }
@@ -82,9 +87,8 @@ class InterestController extends Controller
                 Response::HTTP_CREATED
             );
         } catch (\Exception $exception) {
-            return response()->json([
-                'error' => $exception->getMessage()
-            ], Response::HTTP_BAD_REQUEST);
+            Log::error($exception->getMessage());
+            return response()->json([], Response::HTTP_BAD_REQUEST);
         }
     }
 
@@ -107,8 +111,8 @@ class InterestController extends Controller
     public function getMinAndMaxDates(): JsonResponse
     {
         return response()->json([
-            'min' => InterestRate::min('effective_date'),
-            'max' => InterestRate::max('effective_date')
+            'min' => $this->interestRateRepository->getMinInterestEffectiveDate(),
+            'max' => $this->interestRateRepository->getMaxInterestEffectiveDate()
         ]);
     }
 }

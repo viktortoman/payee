@@ -76,17 +76,17 @@
                                     "start_date": {
                                         "type": "string",
                                         "format": "date",
-                                        "example": "2021-01-01"
+                                        "example": "2024-01-01"
                                     },
                                     "end_date": {
                                         "type": "string",
                                         "format": "date",
-                                        "example": "2021-12-31"
+                                        "example": "2024-01-30"
                                     },
                                     "amount": {
                                         "type": "number",
                                         "format": "float",
-                                        "example": "1000"
+                                        "example": 100000
                                     }
                                 },
                                 "type": "object"
@@ -95,7 +95,7 @@
                     }
                 },
                 "responses": {
-                    "200": {
+                    "201": {
                         "description": "Calculate interest",
                         "content": {
                             "application/json": {
@@ -104,27 +104,27 @@
                                         "start_date": {
                                             "type": "string",
                                             "format": "date",
-                                            "example": "2021-01-01"
+                                            "example": "2024-01-01"
                                         },
                                         "end_date": {
                                             "type": "string",
                                             "format": "date",
-                                            "example": "2021-12-31"
+                                            "example": "2024-01-30"
                                         },
                                         "calculated_interest": {
                                             "type": "number",
                                             "format": "float",
-                                            "example": "0.05"
+                                            "example": 10
                                         },
                                         "principal_amount": {
                                             "type": "number",
                                             "format": "int",
-                                            "example": "1000"
+                                            "example": 100000
                                         },
                                         "days_Count": {
                                             "type": "number",
                                             "format": "int",
-                                            "example": "10"
+                                            "example": 10
                                         }
                                     },
                                     "type": "object"
